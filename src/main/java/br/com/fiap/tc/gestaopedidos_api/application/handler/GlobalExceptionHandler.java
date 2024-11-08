@@ -2,6 +2,8 @@ package br.com.fiap.tc.gestaopedidos_api.application.handler;
 
 
 import br.com.fiap.tc.gestaopedidos_api.domain.exception.GestaoPedidoNotFoundException;
+import br.com.fiap.tc.gestaopedidos_api.infra.feign.ClienteConexaoNaoEncontrada;
+import br.com.fiap.tc.gestaopedidos_api.infra.feign.ClienteNaoEncontradoException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,4 +67,33 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(erro, status);
     }
+
+    @ExceptionHandler(ClienteNaoEncontradoException.class)
+    public ResponseEntity<ErroCustomizado> ClienteNaoEncontradoException(ClienteNaoEncontradoException ex, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        ErroCustomizado erro = new ErroCustomizado(
+                Instant.now(),
+                ex.getMessage(),
+                status.value(),
+                request.getRequestURI()
+        );
+
+        return new ResponseEntity<>(erro, status);
+    }
+
+    @ExceptionHandler(ClienteConexaoNaoEncontrada.class)
+    public ResponseEntity<ErroCustomizado> ClienteConexaoNaoEncontrada(ClienteConexaoNaoEncontrada ex, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        ErroCustomizado erro = new ErroCustomizado(
+                Instant.now(),
+                ex.getMessage(),
+                status.value(),
+                request.getRequestURI()
+        );
+
+        return new ResponseEntity<>(erro, status);
+    }
+
+
+
 }
