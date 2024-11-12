@@ -26,9 +26,7 @@ public class ConsultarClientePorIDAdapter implements ConsultaClientePorIDInterfa
     public Cliente consultaPorId(Long id) {
         try {
 
-            var clienteResponse = consultarClientePorID.consultaClientePorID(id);
-
-            return clienteDtoMapper.toCliente(clienteResponse);
+            return clienteDtoMapper.toCliente(consultarClientePorID.consultaClientePorID(id));
 
         } catch (feign.RetryableException e) {
                      throw new ClienteConexaoNaoEncontrada("Erro de conexão: não foi possível acessar o serviço de clientes. " + clientHost );

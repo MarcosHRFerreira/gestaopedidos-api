@@ -27,6 +27,7 @@ public class GestaoPedidoEntity {
     @NonNull
     private Double valortotal;
     @NonNull
+    @Enumerated(EnumType.STRING)
     private TipoPagamentoEnum tipopagamento;
 
 }
