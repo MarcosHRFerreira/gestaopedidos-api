@@ -23,7 +23,6 @@ public class AtualizarGestaoPedidoController {
     public ResponseEntity<GestaoPedidoResponse>atualizarGestaoPedido(@PathVariable Long id,
                                                                      @RequestBody AtualizarGestaoPedidoRequest atualizarGestaoPedidoRequest){
         GestaoPedido pedidoAtualizado=atualizarGestaoPedidoUseCase.atualizarGestaoPedido(id,gestaoPedidoDtoMapper.toGestaoPedido(atualizarGestaoPedidoRequest));
-
         GestaoPedidoResponse gestaoPedidoResponse=gestaoPedidoDtoMapper.toGestaoPedidoResponse(pedidoAtualizado);
 
         return  ResponseEntity.ok(gestaoPedidoResponse);
